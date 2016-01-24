@@ -47,6 +47,9 @@ object CompositionSideEffects extends App {
 				_ => Util.log(s"incrementing $valAtStart")
 				//to ensure the log is no side effect
 			}
+			Txn.afterRollback {
+				_ => Util.log("rolling back")
+			}
 			myVal() = myVal() + 1
 	}
 	Future { incWithNoEffects() }
